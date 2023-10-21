@@ -1,0 +1,4 @@
+Running: xsim.dir/signalAcquire_tb_behav/xsimk.exe -simmode gui -wdb signalAcquire_tb_behav.wdb -simrunnum 0 -socket 64644
+Design successfully loaded
+Design Loading Memory Usage: 9020 KB (Peak: 9020 KB)
+Design Loading CPU Usage: 46 ms

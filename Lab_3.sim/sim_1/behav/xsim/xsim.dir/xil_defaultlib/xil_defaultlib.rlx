@@ -1,0 +1,17 @@
+0.7
+2020.2
+May  7 2023
+15:24:31
+Z:/EENG498/Lab_3/an7606.vhd,1697639529,vhdl,,,,an7606_tb,,,,,,,,
+Z:/EENG498/Lab_3/basicBuildingBlocksVhdl/basicBuildingBlocksVhdl_package.vhd,1663518468,vhdl,Z:/EENG498/Lab_3/signalAcquireDatapath.vhdl,,,basicbuildingblocks_package,,,,,,,,
+Z:/EENG498/Lab_3/basicBuildingBlocksVhdl/decoder3x8.vhd,1663516166,vhdl,,,,decode3x8,,,,,,,,
+Z:/EENG498/Lab_3/basicBuildingBlocksVhdl/genericComparator.vhd,1663513426,vhdl,,,,genericcompare,,,,,,,,
+Z:/EENG498/Lab_3/basicBuildingBlocksVhdl/genericCounter.vhd,1663515766,vhdl,,,,genericcounter,,,,,,,,
+Z:/EENG498/Lab_3/basicBuildingBlocksVhdl/genericMux8x1.vhd,1663512112,vhdl,,,,genericmux8x1,,,,,,,,
+Z:/EENG498/Lab_3/basicBuildingBlocksVhdl/genericRegister.vhd,1663515716,vhdl,,,,genericregister,,,,,,,,
+Z:/EENG498/Lab_3/signalAcquire.vhd,1697922764,vhdl,,,,signalacquire,,,,,,,,
+Z:/EENG498/Lab_3/signalAcquireDatapath.vhdl,1697923013,vhdl,,,,signalacquire_datapath,,,,,,,,
+Z:/EENG498/Lab_3/signalAcquireFsm.vhdl,1697922555,vhdl,,,,signalacquire_fsm,,,,,,,,
+Z:/EENG498/Lab_3/signalAcquireRegister.vhd,1697919384,vhdl,,,,signalacquireregister,,,,,,,,
+Z:/EENG498/Lab_3/signalAcquire_Package.vhd,1697921870,vhdl,Z:/EENG498/Lab_3/signalAcquireDatapath.vhdl,,,signalacquire_package,,,,,,,,
+Z:/EENG498/Lab_3/signalAcquire_tb.vhd,1697639550,vhdl,,,,signalacquire_tb,,,,,,,,

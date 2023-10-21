@@ -1,0 +1,18 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../basicBuildingBlocksVhdl/basicBuildingBlocksVhdl_package.vhd" \
+"../../../../signalAcquireRegister.vhd" \
+"../../../../signalAcquire_Package.vhd" \
+"../../../../an7606.vhd" \
+"../../../../basicBuildingBlocksVhdl/decoder3x8.vhd" \
+"../../../../basicBuildingBlocksVhdl/genericComparator.vhd" \
+"../../../../basicBuildingBlocksVhdl/genericCounter.vhd" \
+"../../../../basicBuildingBlocksVhdl/genericMux8x1.vhd" \
+"../../../../basicBuildingBlocksVhdl/genericRegister.vhd" \
+"../../../../signalAcquire.vhd" \
+"../../../../signalAcquireDatapath.vhdl" \
+"../../../../signalAcquireFsm.vhdl" \
+"../../../../signalAcquire_tb.vhd" \
+
+# Do not sort compile order
+nosort

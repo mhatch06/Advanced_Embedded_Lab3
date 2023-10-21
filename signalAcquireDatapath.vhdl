@@ -21,12 +21,12 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use work.signalAcquire_Package.all;
-use work.basicBuildingBlocksVhdl.all;	
+use work.basicBuildingBlocks_Package.all;
 
 entity signalAcquire_Datapath is
     PORT ( clk : in  STD_LOGIC;
            resetn : in  STD_LOGIC;
-		   cw : in STD_LOGIC_VECTOR(CW_WIDTH -1 downto 0);
+		   cw : in STD_LOGIC_VECTOR(CW_WIDTH - 1 downto 0);
 		   sw : out STD_LOGIC_VECTOR(DATAPATH_SW_WIDTH - 1 downto 0);
 		   an7606data: in STD_LOGIC_VECTOR(15 downto 0);
 		   rfAddr: in STD_LOGIC_VECTOR(2 downto 0);
@@ -51,11 +51,11 @@ begin
 			
 	longCompareInstantiation: genericCompare
 	GENERIC MAP(24)
-	PORT MAP(   x => "0x00FFFF",
+	PORT MAP(   x => x"00FFFF",
 				y => longCount,
 				g => open,
 				l => open,
-				e => sw(SHORT_DELAY_DONE_SW_BIT_INDEX));
+				e => sw(LONG_DELAY_DONE_SW_BIT_INDEX));
 
 	shortCounterInstantiation : genericCounter
 	GENERIC MAP (16)
@@ -65,10 +65,10 @@ begin
 				d => (others => '0'),
 				q => shortCount);
 
-	longCompareInstantiation: genericCompare
-	GENERIC MAP(24)
-	PORT MAP(   x => "0x00FFFF",
-				y => longCount,
+	shortCompareInstantiation: genericCompare
+	GENERIC MAP(16)
+	PORT MAP(   x => x"000F",
+				y => shortCount,
 				g => open,
 				l => open,
 				e => sw(SHORT_DELAY_DONE_SW_BIT_INDEX));
@@ -81,5 +81,20 @@ begin
 				d => (others => '0'),
 				q => rfCount);
 
-	
+	RFCompareInstantiation: genericCompare
+	GENERIC MAP(4)
+	PORT MAP(   x => x"8",
+				y => rfCount,
+				g => open,
+				l => open,
+				e => sw(ALL_CHANNELS_HAVE_BEEN_READ_SW_BIT_INDEX));
+				
+	regFileInstantiation: signalAcquireRegister
+	PORT MAP(	clk => clk,
+				resetn => resetn,
+				write => cw(REF_FILE_WRITE_CW_BIT_INDEX),
+		   		d => an7606data,
+				rdAddr => rfAddr,
+				wrAddr => rfCount(2 downto 0),
+				q => rfData);
 end behavior;

@@ -61,22 +61,16 @@ BEGIN
 					WHEN LONG_DELAY_STATE =>
 						IF (LONG_DELAY_DONE_SW = '1') THEN
 							state <= RESET_AD7606_STATE;
-						ELSE
-							state <= LONG_DELAY_STATE;
 						END IF;
 
 					WHEN RESET_AD7606_STATE =>
 						IF (SHORT_DELAY_DONE_SW = '1') THEN
 							state <= WAIT_TRIGGER_STATE;
-						ELSE
-							state <= RESET_AD7606_STATE;
 						END IF;
 
 					WHEN WAIT_TRIGGER_STATE =>
 						IF (TRIGGER_SW = '1') THEN
 							state <= ASSERT_CONVST_STATE;
-						ELSE
-							state <= WAIT_TRIGGER_STATE;
 						END IF;
 
 					WHEN ASSERT_CONVST_STATE =>
@@ -87,14 +81,10 @@ BEGIN
 					WHEN WAIT_BUSY_0_STATE =>
 						IF (BUSY_SW = '1') THEN
 							state <= WAIT_BUSY_1_STATE;
-						ELSE
-							state <= WAIT_BUSY_0_STATE;
 						END IF;
 
 					WHEN WAIT_BUSY_1_STATE =>
-						IF (BUSY_SW = '1') THEN
-							state <= WAIT_BUSY_1_STATE;
-						ELSE
+						IF (BUSY_SW = '0') THEN
 							state <= WAIT_VALID_DATA_STATE;
 						END IF;
 

@@ -10,10 +10,10 @@ add_wave  -color green /signalAcquire_tb/uut/clk
 add_wave  -color green /signalAcquire_tb/uut/resetn
 add_wave  -color yellow /signalAcquire_tb/uut/btn
 
-add_wave   -color aqua /signalAcquire_tb/uut/control_inst/state
-add_wave   -color purple	-radix unsigned /signalAcquire_tb/uut/datapath_inst/shortDelayCounter
-add_wave   -color purple	-radix unsigned /signalAcquire_tb/uut/datapath_inst/longDelayCounter
-add_wave   -color purple	-radix unsigned /signalAcquire_tb/uut/datapath_inst/regCounter
+add_wave   -color aqua /signalAcquire_tb/uut/cusw/state
+add_wave   -color purple	-radix unsigned /signalAcquire_tb/uut/dpsw/shortCount
+add_wave   -color purple	-radix unsigned /signalAcquire_tb/uut/dpsw/longCount
+add_wave   -color purple	-radix unsigned /signalAcquire_tb/uut/dpsw/rfCount
 
 add_wave   -color orange -radix hex	/signalAcquire_tb/uut/an7606data
 add_wave   -color orange 		/signalAcquire_tb/uut/an7606convst
@@ -24,15 +24,16 @@ add_wave   -color orange		/signalAcquire_tb/uut/an7606busy
 add_wave   -color red -radix hex	/signalAcquire_tb/uut/cw
 add_wave   -color maroon -radix hex	/signalAcquire_tb/uut/sw
 add_wave   -color maroon -radix hex -name Trigger	/signalAcquire_tb/uut/sw[3]
+add_wave   -color maroon -radix hex -name btn	/signalAcquire_tb/uut/btn
 
-add_wave   -color gold -radix hex	/signalAcquire_tb/uut/datapath_inst/adSamples_inst/Q0
-add_wave   -color gold -radix hex	/signalAcquire_tb/uut/datapath_inst/adSamples_inst/Q1
-add_wave   -color gold -radix hex	/signalAcquire_tb/uut/datapath_inst/adSamples_inst/Q2
-add_wave   -color gold -radix hex	/signalAcquire_tb/uut/datapath_inst/adSamples_inst/Q3
-add_wave   -color gold -radix hex	/signalAcquire_tb/uut/datapath_inst/adSamples_inst/Q4
-add_wave   -color gold -radix hex	/signalAcquire_tb/uut/datapath_inst/adSamples_inst/Q5
-add_wave   -color gold -radix hex	/signalAcquire_tb/uut/datapath_inst/adSamples_inst/Q6
-add_wave   -color gold -radix hex	/signalAcquire_tb/uut/datapath_inst/adSamples_inst/Q7
+add_wave   -color gold -radix hex	/signalAcquire_tb/uut/dpsw/regFileInstantiation/q0
+add_wave   -color gold -radix hex	/signalAcquire_tb/uut/dpsw/regFileInstantiation/q1
+add_wave   -color gold -radix hex	/signalAcquire_tb/uut/dpsw/regFileInstantiation/q2
+add_wave   -color gold -radix hex	/signalAcquire_tb/uut/dpsw/regFileInstantiation/q3
+add_wave   -color gold -radix hex	/signalAcquire_tb/uut/dpsw/regFileInstantiation/q4
+add_wave   -color gold -radix hex	/signalAcquire_tb/uut/dpsw/regFileInstantiation/q5
+add_wave   -color gold -radix hex	/signalAcquire_tb/uut/dpsw/regFileInstantiation/q6
+add_wave   -color gold -radix hex	/signalAcquire_tb/uut/dpsw/regFileInstantiation/q7
 
 
 

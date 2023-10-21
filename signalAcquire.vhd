@@ -14,92 +14,122 @@
 -- code.  I also understand that if I knowingly give my original work to 
 -- another individual is also a violation of the honor code. 
 ------------------------------------------------------------------------- 
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.STD_LOGIC_UNSIGNED.ALL;
-					-- Include any packages that are instantiated
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.STD_LOGIC_UNSIGNED.ALL;
+use work.signalAcquire_Package.ALL;
+use work.basicBuildingBlocks_Package.all;	
 
+-- Include any packages that are instantiated
+ENTITY signalAcquire IS
+	PORT (
+		clk : IN STD_LOGIC;
+		resetn : IN STD_LOGIC;
+		btn : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
+		an7606data : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+		an7606convst, an7606cs, an7606rd, an7606reset : OUT STD_LOGIC;
+		an7606od : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
+		an7606busy : IN STD_LOGIC;
+		reg0Magnitude : OUT STD_LOGIC_VECTOR(3 DOWNTO 0));
+END signalAcquire;
 
-entity signalAcquire is
-    PORT ( clk : in  STD_LOGIC;
-           resetn : in  STD_LOGIC;
-		   btn: in	STD_LOGIC_VECTOR(2 downto 0);
-		   an7606data: in STD_LOGIC_VECTOR(15 downto 0);
-		   an7606convst, an7606cs, an7606rd, an7606reset: out STD_LOGIC;
-		   an7606od: out STD_LOGIC_VECTOR(2 downto 0);
-		   an7606busy : in STD_LOGIC;
-		   reg0Magnitude: out STD_LOGIC_VECTOR(3 downto 0));		   
-end signalAcquire;
-
-architecture behavior of signalAcquire is
+ARCHITECTURE behavior OF signalAcquire IS
 	-- output of cu
-	signal cw: STD_LOGIC_VECTOR(CW_WIDTH-1 downto 0);
+	SIGNAL cw : STD_LOGIC_VECTOR(CW_WIDTH - 1 DOWNTO 0);
 	-- input to cu
-	signal sw: STD_LOGIC_VECTOR(SW_WIDTH-1 downto 0);
-	
+	SIGNAL sw : STD_LOGIC_VECTOR(SW_WIDTH - 1 DOWNTO 0);
+
 	-- 3/5 of sw
-	signal sw_dp: STD_LOGIC_VECTOR(DATAPATH_SW_WIDTH - 1 downto 0);
-	
+	SIGNAL sw_dp : STD_LOGIC_VECTOR(DATAPATH_SW_WIDTH - 1 DOWNTO 0);
+
 	-- the other 2/5 of sw
-	signal trigger: STD_LOGIC;
-	signal busy: STD_LOGIC;
+	SIGNAL trigger : STD_LOGIC;
+	SIGNAL busy : STD_LOGIC;
 
 	-- rfData
-	signal rfData: STD_LOGIC_VECTOR(15 downto 0);
+	SIGNAL rfData : STD_LOGIC_VECTOR(15 DOWNTO 0);
 
-begin
+	-- btn stuff
+	SIGNAL btnLast, btnPressed : STD_LOGIC_VECTOR(2 DOWNTO 0);
 
-	-- four comparators and a button process
-	-- and the cu and dp
+BEGIN
+    -- sw definition
+    busy <= an7606busy;
+    sw <= busy & trigger & sw_dp;
+
+    -- cw assignments
+    an7606convst <= cw(CONVST_CW_BIT_INDEX);
+	an7606rd <= cw(RD_CW_BIT_INDEX);
+	an7606cs <= cw(CS_CW_BIT_INDEX);
+	an7606reset <= cw(RESET_AD7606_CW_BIT_INDEX);
+
 
 	-- DP
-	dpsw: signalAcquire_Datapath
-	   port map (  	clk => clk,
-	               	resetn => resetn, 
-	               	cw => cw, 
-	               	sw => sw_dp,
-				   	an7606data => an7606data,
-				   	rfAddr => "000", -- check if this is the right way
-				   	rfData => rfData);
-	
+	dpsw : signalAcquire_Datapath
+	PORT MAP(
+		clk => clk,
+		resetn => resetn,
+		cw => cw,
+		sw => sw_dp,
+		an7606data => an7606data,
+		rfAddr => "000",
+		rfData => rfData);
+
 	-- CU
-	cusw: signalAcquire_Fsm
-	   port map(  	clk => clk,
-	            	resetn => resetn, 
-	               	cw => cw, 
-	               	sw => sw);
+	cusw : signalAcquire_Fsm
+	PORT MAP(
+		clk => clk,
+		resetn => resetn,
+		cw => cw,
+		sw => sw);
 
 	-- comparators
-	comp4: genericCompare
-		GENERIC MAP(8)
-		PORT MAP(	x => FOURTH_THRESHOLD_CONSTANT,
-					y => rfData,
-					g => reg0Magnitude(3),
-					l => open,
-					e => open);
+	comp4 : genericCompare
+	GENERIC MAP(16)
+	PORT MAP(
+		x => FOURTH_THRESHOLD_CONSTANT,
+		y => rfData,
+		g => reg0Magnitude(3),
+		l => OPEN,
+		e => OPEN);
 
-	comp3: genericCompare
-		GENERIC MAP(8)
-		PORT MAP(	x => THIRD_THRESHOLD_CONSTANT,
-					y => rfData,
-					g => reg0Magnitude(2),
-					l => open,
-					e => open);
+	comp3 : genericCompare
+	GENERIC MAP(16)
+	PORT MAP(
+		x => THIRD_THRESHOLD_CONSTANT,
+		y => rfData,
+		g => reg0Magnitude(2),
+		l => OPEN,
+		e => OPEN);
 
-	comp2: genericCompare
-		GENERIC MAP(8)
-		PORT MAP(	x => SECOND_THRESHOLD_CONSTANT,
-					y => rfData,
-					g => reg0Magnitude(1),
-					l => open,
-					e => open);
+	comp2 : genericCompare
+	GENERIC MAP(16)
+	PORT MAP(
+		x => SECOND_THRESHOLD_CONSTANT,
+		y => rfData,
+		g => reg0Magnitude(1),
+		l => OPEN,
+		e => OPEN);
 
-	comp1: genericCompare
-		GENERIC MAP(8)
-		PORT MAP(	x => FIRST_THRESHOLD_CONSTANT,
-					y => rfData,
-					g => reg0Magnitude(0),
-					l => open,
-					e => open);
+	comp1 : genericCompare
+	GENERIC MAP(16)
+	PORT MAP(
+		x => FIRST_THRESHOLD_CONSTANT,
+		y => rfData,
+		g => reg0Magnitude(0),
+		l => OPEN,
+		e => OPEN);
 
-end behavior;
+	PROCESS (clk)
+	BEGIN
+		IF rising_edge(clk) THEN
+			IF resetn = '0' THEN
+				trigger <= '0';
+			ELSE
+				btnPressed <= (btnLast XOR btn) AND btn;
+				trigger <= (btnPressed(0) or btnPressed(1) or btnPressed(2));
+				btnLast <= btn;
+			END IF;
+        END IF;
+    END PROCESS;
+END behavior;
