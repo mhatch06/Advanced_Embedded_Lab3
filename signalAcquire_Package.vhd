@@ -16,6 +16,7 @@
 ------------------------------------------------------------------------- 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use work.signalAcquireRegister;
 
 
 package signalAcquire_Package is
@@ -47,8 +48,8 @@ CONSTANT DATAPATH_SW_WIDTH : NATURAL := 3;
 CONSTANT START_CONV_SW_BIT_INDEX : NATURAL := 3; -- trigger
 CONSTANT BUSY_SW_BIT_INDEX : NATURAL := 4; -- busy
 
-CONSTANT SW_WIDTH : NATURAL := 11;
-CONSTANT CW_WIDTH : NATURAL := 5;
+CONSTANT SW_WIDTH : NATURAL := 5;
+CONSTANT CW_WIDTH : NATURAL := 11;
 
 CONSTANT LONG_DELAY_50Mhz_CONST_WIDTH : NATURAL := 24;
 CONSTANT LONG_DELAY_50Mhz_COUNTS : STD_LOGIC_VECTOR(LONG_DELAY_50Mhz_CONST_WIDTH - 1 downto 0) := x"00FFFF";
@@ -57,23 +58,26 @@ CONSTANT SHORT_DELAY_50Mhz_CONST_WIDTH : NATURAL := 8;
 CONSTANT SHORT_DELAY_50Mhz_COUNTS : STD_LOGIC_VECTOR(SHORT_DELAY_50Mhz_CONST_WIDTH - 1 downto 0) := x"10";
 
 -- You need to determine the 16-bit 2's complement ADC values for these voltages
--- CONSTANT FOURTH_THRESHOLD_CONSTANT : STD_LOGIC_VECTOR(15 downto 0)  := x"????";  -- 2.64V
--- CONSTANT THIRD_THRESHOLD_CONSTANT : STD_LOGIC_VECTOR(15 downto 0) := x"????";    -- 1.98V
--- CONSTANT SECOND_THRESHOLD_CONSTANT : STD_LOGIC_VECTOR(15 downto 0)   := x"????"; -- 1.32V
--- CONSTANT FIRST_THRESHOLD_CONSTANT : STD_LOGIC_VECTOR(15 downto 0)   := x"????";  -- 0.66V
+ CONSTANT FOURTH_THRESHOLD_CONSTANT : STD_LOGIC_VECTOR(15 downto 0)  := x"4396";  -- 2.64V
+ CONSTANT THIRD_THRESHOLD_CONSTANT : STD_LOGIC_VECTOR(15 downto 0) := x"32B0";    -- 1.98V
+ CONSTANT SECOND_THRESHOLD_CONSTANT : STD_LOGIC_VECTOR(15 downto 0)   := x"21CB"; -- 1.32V
+ CONSTANT FIRST_THRESHOLD_CONSTANT : STD_LOGIC_VECTOR(15 downto 0)   := x"10E5";  -- 0.66V
 
 component signalAcquire_Fsm is
     PORT (  clk : in STD_LOGIC;
             resetn : in STD_LOGIC;
             sw : in STD_LOGIC_VECTOR(SW_WIDTH - 1 downto 0);
-            cw : in STD_LOGIC_VECTOR(CW_WIDTH - 1 downto 0));
+            cw : out STD_LOGIC_VECTOR(CW_WIDTH - 1 downto 0));
 end component;
 
 component signalAcquire_Datapath is
     PORT(   clk : in STD_LOGIC;
             resetn : in STD_LOGIC;
-            cw : in STD_LOGIC_VECTOR(CW_VECTOR_LENGTH - 1 downto 0);
-            sw : out STD_LOGIC_VECTOR(DATAPATH_SW_WIDTH - 1 downto 0));
+            cw : in STD_LOGIC_VECTOR(CW_WIDTH - 1 downto 0);
+            sw : out STD_LOGIC_VECTOR(DATAPATH_SW_WIDTH - 1 downto 0);
+            an7606data: in STD_LOGIC_VECTOR(15 downto 0);
+		   rfAddr: in STD_LOGIC_VECTOR(2 downto 0);
+		   rfData: out STD_LOGIC_VECTOR(15 downto 0));
 end component;
 
 type state_type is (RESET_STATE, LONG_DELAY_STATE, RESET_AD7606_STATE, WAIT_TRIGGER_STATE,
@@ -98,7 +102,13 @@ component an7606_tb IS
            an7606od: in STD_LOGIC_VECTOR(2 downto 0);
            an7606busy : out STD_LOGIC);
 END component;
-    
+
+component signalAcquireRegister is
+        port (  clk, resetn, write: in STD_LOGIC;
+                d: in STD_LOGIC_VECTOR(15 downto 0);
+                rdAddr, wrAddr: in  STD_LOGIC_VECTOR(2 downto 0);
+                q: out STD_LOGIC_VECTOR(15 downto 0) );
+end component;
     	
 end package;
 
