@@ -51,7 +51,6 @@ ARCHITECTURE behavior OF signalAcquire IS
 
 	-- btn stuff
 	SIGNAL btnLast, btnPressed : STD_LOGIC_VECTOR(2 DOWNTO 0);
-
 BEGIN
     -- sw definition
     busy <= an7606busy;

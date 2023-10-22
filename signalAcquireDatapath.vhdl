@@ -89,7 +89,8 @@ begin
 				l => open,
 				e => sw(ALL_CHANNELS_HAVE_BEEN_READ_SW_BIT_INDEX));
 				
-	regFileInstantiation: signalAcquireRegister
+	regFileInstantiation: generic8RegisterFile
+	GENERIC MAP(16)
 	PORT MAP(	clk => clk,
 				resetn => resetn,
 				write => cw(REF_FILE_WRITE_CW_BIT_INDEX),

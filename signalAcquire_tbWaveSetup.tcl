@@ -26,6 +26,11 @@ add_wave   -color maroon -radix hex	/signalAcquire_tb/uut/sw
 add_wave   -color maroon -radix hex -name Trigger	/signalAcquire_tb/uut/sw[3]
 add_wave   -color maroon -radix hex -name btn	/signalAcquire_tb/uut/btn
 
+add_wave   -color gold -radix hex	/signalAcquire_tb/uut/dpsw/regFileInstantiation/rdAddr
+add_wave   -color gold -radix hex	/signalAcquire_tb/uut/dpsw/regFileInstantiation/wrAddr
+add_wave   -color gold -radix hex	/signalAcquire_tb/uut/dpsw/regFileInstantiation/write
+add_wave   -color gold -radix hex	/signalAcquire_tb/uut/dpsw/regFileInstantiation/q
+
 add_wave   -color gold -radix hex	/signalAcquire_tb/uut/dpsw/regFileInstantiation/q0
 add_wave   -color gold -radix hex	/signalAcquire_tb/uut/dpsw/regFileInstantiation/q1
 add_wave   -color gold -radix hex	/signalAcquire_tb/uut/dpsw/regFileInstantiation/q2
@@ -34,6 +39,8 @@ add_wave   -color gold -radix hex	/signalAcquire_tb/uut/dpsw/regFileInstantiatio
 add_wave   -color gold -radix hex	/signalAcquire_tb/uut/dpsw/regFileInstantiation/q5
 add_wave   -color gold -radix hex	/signalAcquire_tb/uut/dpsw/regFileInstantiation/q6
 add_wave   -color gold -radix hex	/signalAcquire_tb/uut/dpsw/regFileInstantiation/q7
+
+add_wave   -color gold -radix hex	/signalAcquire_tb/uut/dpsw/regFileInstantiation/regWrite
 
 
 

@@ -21,6 +21,15 @@ use IEEE.std_logic_1164.all;
 use IEEE.std_logic_unsigned.all;
 
 package basicBuildingBlocks_package is
+
+component flagRegister is
+	generic (N: integer := 8);
+	port(	clk: in  STD_LOGIC;
+			resetn : in  STD_LOGIC;
+			set, clear: in std_logic_vector(N-1 downto 0);
+			Q: out std_logic_vector(N-1 downto 0));
+end component;
+
 	
 	component genericAdder is
 	    generic(N: integer := 4);
@@ -57,6 +66,13 @@ package basicBuildingBlocks_package is
 			 f: out std_logic_vector(N-1 downto 0) );
 	end component;
 
+component genericMux4x1 is
+    generic(N: integer := 8);
+    port(y3,y2,y1,y0: in STD_LOGIC_VECTOR(N-1 downto 0);
+	 s: in STD_LOGIC_VECTOR(1 downto 0);
+	 f: out STD_LOGIC_VECTOR(N-1 downto 0) );
+end component;
+
     component genericMux8x1 is
         generic(N: integer := 8);
         port(y7,y6,y5,y4,y3,y2,y1,y0: in STD_LOGIC_VECTOR(N-1 downto 0);
@@ -77,8 +93,16 @@ package basicBuildingBlocks_package is
                     y : out STD_LOGIC_VECTOR(7 downto 0));
             end component;
 
-    -- you need to complete the component declaration for the register file
-
+           
+    component generic8RegisterFile is
+            generic(N: integer := 16);
+            port (  clk, resetn: in STD_LOGIC;
+                    write: in STD_LOGIC;
+                    wrAddr: in  STD_LOGIC_VECTOR(2 downto 0);
+                    rdAddr: in  STD_LOGIC_VECTOR(2 downto 0);
+                    D: in STD_LOGIC_VECTOR(N-1 downto 0);
+                    Q: out STD_LOGIC_VECTOR(N-1 downto 0) );
+    end component;
             
 
 end package;

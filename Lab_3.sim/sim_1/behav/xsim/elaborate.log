@@ -25,7 +25,7 @@ Compiling architecture behavior of entity xil_defaultlib.genericCompare [generic
 Compiling architecture behavior of entity xil_defaultlib.decode3x8 [decode3x8_default]
 Compiling architecture behavior of entity xil_defaultlib.genericRegister [\genericRegister(n=16)\]
 Compiling architecture behavior of entity xil_defaultlib.genericMux8x1 [\genericMux8x1(n=16)\]
-Compiling architecture behavior of entity xil_defaultlib.signalAcquireRegister [signalacquireregister_default]
+Compiling architecture structure of entity xil_defaultlib.generic8RegisterFile [generic8registerfile_default]
 Compiling architecture behavior of entity xil_defaultlib.signalAcquire_Datapath [signalacquire_datapath_default]
 Compiling architecture behavioral of entity xil_defaultlib.signalAcquire_Fsm [signalacquire_fsm_default]
 Compiling architecture behavior of entity xil_defaultlib.signalAcquire [signalacquire_default]

@@ -1,2 +1,9 @@
+INFO: [VRFC 10-163] Analyzing VHDL file "Z:/EENG498/Lab_3/basicBuildingBlocksVhdl/basicBuildingBlocksVhdl_package.vhd" into library xil_defaultlib
+INFO: [VRFC 10-163] Analyzing VHDL file "Z:/EENG498/Lab_3/signalAcquireRegister.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'signalAcquireRegister'
+INFO: [VRFC 10-163] Analyzing VHDL file "Z:/EENG498/Lab_3/basicBuildingBlocksVhdl/regFile8x16.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'generic8RegisterFile'
+INFO: [VRFC 10-163] Analyzing VHDL file "Z:/EENG498/Lab_3/signalAcquire.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'signalAcquire'
 INFO: [VRFC 10-163] Analyzing VHDL file "Z:/EENG498/Lab_3/signalAcquireDatapath.vhdl" into library xil_defaultlib
 INFO: [VRFC 10-3107] analyzing entity 'signalAcquire_Datapath'
